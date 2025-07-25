@@ -40,9 +40,7 @@ namespace TapLinko.Data
                 new User
                 {
                     UserId = 1,
-                    Name = "Alice Nguyen",
-                    Email = "alice@example.com",
-                    Password = "123456" // Just for dev/testing (plain text!)
+                    Name = "Alice Nguyen"                
                 }
             );
 

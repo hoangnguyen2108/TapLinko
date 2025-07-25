@@ -1,0 +1,39 @@
+﻿@model List<TapLinko.Models.ViewModel.LinkPageUserVM>
+@{
+    ViewData["Title"] = "User Page";
+}
+
+<h2> SUmmary User </h2>
+
+<table>
+    <thead>
+        <tr>
+            <td>User Id </td>
+            <td>User Name </td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var i in Model)
+        {
+            <tr>
+                <td>@i.UserId</td>
+                <td>@i.Name</td>
+
+                <td>
+                    <a asp-action="Detail" asp-route-id="@i.UserId" class="btn btn-info btn-sm">Detail</a>
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@i.UserId" class="btn btn-info btn-sm">Edit</a>
+                </td>
+
+                <td>
+                    <a asp-action="Delete" asp-route-id="@i.UserId" class="btn btn-info btn-sm">Delete</a>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
