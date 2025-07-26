@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapLinko.Data;
 using TapLinko.Models;
@@ -6,6 +7,8 @@ using TapLinko.Models.ViewModel;
 
 namespace TapLinko.Controllers
 {
+    [Authorize(Roles = "Supervisor")]
+
     public class AnalyticController : Controller
     {
         private ApplicationDbContext _context;

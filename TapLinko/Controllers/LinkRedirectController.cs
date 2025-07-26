@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TapLinko.Data;
 using TapLinko.Models;
 
@@ -7,6 +8,7 @@ namespace TapLinko.Controllers
     //Counting
     public class LinkRedirectController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
 
         public LinkRedirectController(ApplicationDbContext context)

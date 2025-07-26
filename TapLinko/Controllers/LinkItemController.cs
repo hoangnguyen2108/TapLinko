@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -10,6 +11,7 @@ using TapLinko.Services.LinkItem;
 
 namespace TapLinko.Controllers
 {
+    [Authorize(Roles = "Supervisor")]
     public class LinkItemController : Controller
     {
         private ApplicationDbContext _context;

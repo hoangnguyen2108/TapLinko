@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using TapLinko.Data;
@@ -8,6 +9,7 @@ using TapLinko.Services;
 
 namespace TapLinko.Controllers
 {
+    [Authorize(Roles = "Supervisor")]
     public class UserController : Controller
     {
         private ApplicationDbContext _context;
