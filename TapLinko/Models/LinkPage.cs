@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TapLinko.Models;
 
 namespace TapLinko.Models
 {

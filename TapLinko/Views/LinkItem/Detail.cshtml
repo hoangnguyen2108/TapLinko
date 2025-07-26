@@ -1,0 +1,34 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+
+@{
+    ViewData["Title"] = "Link Item Details";
+}
+
+<h2 class="mb-4">🔍 Link Item Details</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h5 class="text-muted">📄 Belongs to LinkPage: <strong>@ViewBag.LinkPageTitle</strong></h5>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Label</dt>
+            <dd class="col-sm-9">@Model.Label</dd>
+
+            <dt class="col-sm-3">URL</dt>
+            <dd class="col-sm-9">
+                <a href="@Model.Url" target="_blank">@Model.Url</a>
+            </dd>
+
+            <dt class="col-sm-3">Order</dt>
+            <dd class="col-sm-9">@Model.Order</dd>
+
+            <dt class="col-sm-3">Click Count</dt>
+            <dd class="col-sm-9">@Model.ClickCount</dd>
+
+            <dt class="col-sm-3">Link Page ID</dt>
+            <dd class="col-sm-9">@Model.LinkPageId</dd>
+        </dl>
+
+        <a asp-action="Index" class="btn btn-secondary">← Back to List</a>
+    </div>
+</div>

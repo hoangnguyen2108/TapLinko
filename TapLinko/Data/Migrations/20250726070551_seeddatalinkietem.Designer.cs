@@ -12,8 +12,8 @@ using TapLinko.Data;
 namespace TapLinko.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250725033423_setupstringdb")]
-    partial class setupstringdb
+    [Migration("20250726070551_seeddatalinkietem")]
+    partial class seeddatalinkietem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -282,6 +282,26 @@ namespace TapLinko.Data.Migrations
                     b.HasIndex("LinkPageId");
 
                     b.ToTable("LinkItems");
+
+                    b.HasData(
+                        new
+                        {
+                            LinkItemId = 1,
+                            ClickCount = 0,
+                            Label = "GitHub",
+                            LinkPageId = 1,
+                            Order = 1,
+                            Url = "https://github.com/alice"
+                        },
+                        new
+                        {
+                            LinkItemId = 2,
+                            ClickCount = 0,
+                            Label = "Portfolio",
+                            LinkPageId = 1,
+                            Order = 2,
+                            Url = "https://alice.dev"
+                        });
                 });
 
             modelBuilder.Entity("TapLinko.Models.LinkPage", b =>
@@ -321,7 +341,7 @@ namespace TapLinko.Data.Migrations
                             BannerImageUrl = "https://example.com/images/banner.png",
                             Bio = "Welcome to my page! 💖",
                             LinkPageTitle = "Alice's Bio",
-                            ProfileImageUrl = "https://example.com/images/alice-profile.png",
+                            ProfileImageUrl = "/image/image.jpeg",
                             UserId = 1
                         });
                 });
@@ -351,9 +371,7 @@ namespace TapLinko.Data.Migrations
                         new
                         {
                             UserId = 1,
-                            Email = "alice@example.com",
-                            Name = "Alice Nguyen",
-                            Password = "123456"
+                            Name = "Alice Nguyen"
                         });
                 });
 

@@ -1,0 +1,53 @@
+﻿@model TapLinko.Models.ViewModel.ViewModel
+
+@{
+    ViewData["Title"] = "Analytics Dashboard";
+}
+
+<h2 class="mb-4">🔍 Analytics Summary</h2>
+
+<h4>Total Clicks Per Link Item</h4>
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>#</th>
+            <th>Label</th>
+            <th>Total Clicks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.LinkItemAnalyticsVMs.Count; i++)
+        {
+            var item = Model.LinkItemAnalyticsVMs[i];
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@item.Label</td>
+                <td>@item.TotalClicks</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h4>📈 Click Events (Raw Log)</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>IP Address</th>
+            <th>User Agent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.ClickEvents.Count; i++)
+        {
+            var e = Model.ClickEvents[i];
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@e.Ip</td>
+                <td>@e.UserAgent</td>
+            </tr>
+        }
+    </tbody>
+</table>

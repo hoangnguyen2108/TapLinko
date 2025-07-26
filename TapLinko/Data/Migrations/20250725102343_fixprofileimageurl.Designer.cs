@@ -12,8 +12,8 @@ using TapLinko.Data;
 namespace TapLinko.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250725033423_setupstringdb")]
-    partial class setupstringdb
+    [Migration("20250725102343_fixprofileimageurl")]
+    partial class fixprofileimageurl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -321,7 +321,7 @@ namespace TapLinko.Data.Migrations
                             BannerImageUrl = "https://example.com/images/banner.png",
                             Bio = "Welcome to my page! 💖",
                             LinkPageTitle = "Alice's Bio",
-                            ProfileImageUrl = "https://example.com/images/alice-profile.png",
+                            ProfileImageUrl = "/image/image.jpeg",
                             UserId = 1
                         });
                 });
@@ -351,9 +351,7 @@ namespace TapLinko.Data.Migrations
                         new
                         {
                             UserId = 1,
-                            Email = "alice@example.com",
-                            Name = "Alice Nguyen",
-                            Password = "123456"
+                            Name = "Alice Nguyen"
                         });
                 });
 

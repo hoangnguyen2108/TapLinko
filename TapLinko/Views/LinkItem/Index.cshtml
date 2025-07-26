@@ -1,0 +1,41 @@
+﻿@model List<TapLinko.Models.ViewModel.LinkPageLinkItemVM>
+
+<h2>Link Items</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Label</th>
+            <th>URL</th>
+            <th>Order</th>
+            <th>Clicks</th>
+            <th>Edit Actions</th>
+            <th>Detail Actions</th>
+            <th>Delete Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Label</td>
+                <td>
+                    <a href="@Url.Action("Go", "LinkRedirect", new { id = item.LinkItemId })" target="_blank">
+                        @item.Url
+                    </a>
+                </td>
+                <td>@item.Order</td>
+                <td>@item.ClickCount</td>
+                <td>
+                    <a href="/LinkItem/Edit/@item.LinkItemId" class="btn btn-sm btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Detail" asp-route-id="@item.LinkItemId" class="btn btn-info btn-sm">Detail</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.LinkItemId" class="btn btn-info btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

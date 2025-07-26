@@ -1,0 +1,54 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageUserVM
+
+@{
+    ViewData["Title"] = "Link Page Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Link Page Details</h4>
+        </div>
+
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">User</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Title</dt>
+                <dd class="col-sm-9">@Model.LinkPageTitle</dd>
+
+                <dt class="col-sm-3">Bio</dt>
+                <dd class="col-sm-9">@Model.Bio</dd>
+
+                <dt class="col-sm-3">Profile Image</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.ProfileImageUrl))
+                    {
+                        <img src="@Model.ProfileImageUrl" alt="Profile Image" class="rounded-circle border" width="100" height="100" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No profile image</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3">Banner Image</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.BannerImageUrl))
+                    {
+                        <img src="@Model.BannerImageUrl" alt="Banner Image" class="img-fluid border" style="max-height: 150px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No banner image</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-end">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

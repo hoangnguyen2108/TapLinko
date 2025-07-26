@@ -1,0 +1,60 @@
+﻿@model List<TapLinko.Models.ViewModel.LinkPageUserVM>
+
+@{
+    ViewData["Title"] = "Link Pages";
+}
+
+<h2 class="mb-4">Link Pages</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No link pages found.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Bio</th>
+                <th>Profile Image</th>
+                <th>Banner Image</th>
+                <th>Detail Actions</th>
+                <th>Edit Actions</th>
+                <th>Delete Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.LinkPageTitle</td>
+                    <td>@item.Bio</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ProfileImageUrl))
+                        {
+                            <img src="@Url.Content(item.ProfileImageUrl)" alt="Profile" width="60" height="60" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.BannerImageUrl))
+                        {
+                            <img src="@Url.Content(item.BannerImageUrl)" alt="Banner" width="100" height="60" />
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Detail" asp-route-id="@item.LinkPageId" class="btn btn-info btn-sm">Detail</a>
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.LinkPageId" class="btn btn-info btn-sm">Edit</a>
+                    </td>
+
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.LinkPageId" class="btn btn-info btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

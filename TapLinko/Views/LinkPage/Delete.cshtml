@@ -1,0 +1,22 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageUserVM
+
+@{
+    ViewData["Title"] = "Delete Link Page";
+}
+
+<h2>Are you sure you want to delete this link page?</h2>
+
+<div class="mb-3">
+    <strong>Title:</strong> @Model.LinkPageTitle <br />
+    <strong>Bio:</strong> @Model.Bio
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.LinkPageId" method="post">
+    @Html.AntiForgeryToken()
+
+    <!-- Hidden ID to support form post -->
+    <input type="hidden" asp-for="LinkPageId" />
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

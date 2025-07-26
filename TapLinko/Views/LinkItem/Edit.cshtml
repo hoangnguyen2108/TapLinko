@@ -1,0 +1,51 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+
+@{
+    ViewData["Title"] = "Edit Link Item";
+}
+
+<h2 class="mb-4">✏️ Edit Link Item</h2>
+
+<form asp-action="Edit" method="post">
+    @* Ensure the item ID is preserved *@
+    <input type="hidden" asp-for="LinkItemId" />
+
+    <div class="mb-3">
+        <label asp-for="Label" class="form-label">Label</label>
+        <input asp-for="Label" class="form-control" />
+        <span asp-validation-for="Label" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Url" class="form-label">URL</label>
+        <input asp-for="Url" class="form-control" />
+        <span asp-validation-for="Url" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Order" class="form-label">Order</label>
+        <input asp-for="Order" class="form-control" type="number" />
+        <span asp-validation-for="Order" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LinkPageId" class="form-label">Link Page</label>
+        <select asp-for="LinkPageId" class="form-select" asp-items="ViewBag.LinkPages">
+            <option value="">-- Select Link Page --</option>
+        </select>
+        <span asp-validation-for="LinkPageId" class="text-danger"></span>
+    </div>
+
+    @* Read-only click count display (optional) *@
+    <div class="mb-3">
+        <label class="form-label">Click Count</label>
+        <input value="@Model.ClickCount" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

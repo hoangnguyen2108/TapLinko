@@ -1,0 +1,38 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+
+@{
+    ViewData["Title"] = "Delete Link Item";
+    var linkPageTitle = ((SelectList)ViewBag.LinkPages)
+        .FirstOrDefault(p => p.Value == Model.LinkPageId.ToString())?.Text ?? "Unknown";
+}
+
+<h2 class="mb-3">Delete Link Item</h2>
+
+<div class="alert alert-warning">
+    <strong>Are you sure you want to delete this link item?</strong>
+</div>
+
+<div class="border p-3 mb-3 rounded bg-light">
+    <dl class="row">
+        <dt class="col-sm-3">Label</dt>
+        <dd class="col-sm-9">@Model.Label</dd>
+
+        <dt class="col-sm-3">URL</dt>
+        <dd class="col-sm-9">@Model.Url</dd>
+
+        <dt class="col-sm-3">Order</dt>
+        <dd class="col-sm-9">@Model.Order</dd>
+
+        <dt class="col-sm-3">Click Count</dt>
+        <dd class="col-sm-9">@Model.ClickCount</dd>
+
+        <dt class="col-sm-3">Link Page</dt>
+        <dd class="col-sm-9">@linkPageTitle</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="LinkItemId" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
