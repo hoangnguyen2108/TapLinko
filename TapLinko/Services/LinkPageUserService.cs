@@ -15,11 +15,11 @@ namespace TapLinko.Services
         }
 
         // check duplicated name
-        public async Task<bool> IsUserNameTakenAsync(string name, int excludeUserId = 0)
+        public async Task<bool> IsUserNameTakenAsync(string fullName, string? excludeUserId = null)
         {
             return await _context.Users
-                .Where(u => u.UserId != excludeUserId)
-                .AnyAsync(u => u.Name == name);
+                .Where(u => u.Id != excludeUserId)
+                .AnyAsync(u => (u.FirstName + " " + u.LastName) == fullName);
         }
 
         // mostly for Summary View Index
@@ -28,50 +28,46 @@ namespace TapLinko.Services
         {
             var summaryUser = await _context.Users.Select(c => new LinkPageUserVM
             {
-                UserId = c.UserId,
-                Name = c.Name
+                UserId = c.Id,
+                Name = c.UserName
             }).ToListAsync();
 
 
             return summaryUser;
         }
 
-        // Create Function
+        // Detail
 
-        public async Task<bool> Create(LinkPageUserVM vMs)
+        public async Task<LinkPageUserVM?> GetDetail(string id)
         {
+            var user = await _context.Users
+                .Include(u => u.LinkPage) // 👈 Make sure to load LinkPage
+                .FirstOrDefaultAsync(u => u.Id == id);
 
-            var model = new User
+            if (user == null)
             {
-                Name = vMs.Name
-            };
+                return null;
+            }
 
-
-            _context.Users.Add(model);
-            await _context.SaveChangesAsync();
-
-
-
-            return true;
-        }
-
-        // Mostly Http Get
-
-        public async Task<LinkPageUserVM> GetDetail(int id)
-        {
-            var product = await _context.Users.FindAsync(id);
+            var linkPage = user.LinkPage;
 
             var model = new LinkPageUserVM
             {
-                UserId = product.UserId,
-                Name = product.Name
+                UserId = user.Id,
+                Name = user.UserName,
+                LinkPageId = linkPage?.LinkPageId ?? 0, // Safe fallback
+                LinkPageTitle = linkPage?.LinkPageTitle,
+                Bio = linkPage?.Bio,
+                ProfileImageUrl = linkPage?.ProfileImageUrl,
+                BannerImageUrl = linkPage?.BannerImageUrl
             };
 
             return model;
         }
 
+
         // Edit - Update
-        public async Task<bool> Edit(int id, LinkPageUserVM vMs)
+        public async Task<bool> Edit(string id, LinkPageUserVM vMs)
         {
             var product = await _context.Users.FindAsync(id);
 
@@ -79,7 +75,7 @@ namespace TapLinko.Services
             {
                 return false;
             }
-            product.Name = vMs.Name;
+            product.UserName = vMs.Name;
 
             await _context.SaveChangesAsync();
             return true;
@@ -87,7 +83,7 @@ namespace TapLinko.Services
 
         // Delete
 
-        public async Task<bool> Delete(int id, LinkPageUserVM vMs)
+        public async Task<bool> Delete(string id, LinkPageUserVM vMs)
         {
             var product = await _context.Users.FindAsync(id);
 

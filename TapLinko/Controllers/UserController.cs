@@ -29,38 +29,12 @@ namespace TapLinko.Controllers
             return View(summaryUser);
         }
 
-        // Create
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {      
-            return View();
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Create(int id ,LinkPageUserVM vMs)
-        {
-            
-            if (await _userService.IsUserNameTakenAsync(vMs.Name,id))
-            {
-                Console.WriteLine("Duplicated Name");
-                return View(vMs);
-            }
-            if(ModelState.IsValid)
-            {
-                await _userService.Create(vMs);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(vMs);
-        }
+       
 
         // Detail - Read
 
         [HttpGet]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(string id)
         {
             var product = await _userService.GetDetail(id);
             return View(product);
@@ -69,7 +43,7 @@ namespace TapLinko.Controllers
         // Edit - Update
         [HttpGet]
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             var product = await _userService.GetDetail(id);
             return View(product);
@@ -79,7 +53,7 @@ namespace TapLinko.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int id,  LinkPageUserVM vMs)
+        public async Task<IActionResult> Edit(string id,  LinkPageUserVM vMs)
         {
             
 
@@ -97,7 +71,7 @@ namespace TapLinko.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var product = await _userService.GetDetail(id);
 
@@ -107,7 +81,7 @@ namespace TapLinko.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Delete(int id, LinkPageUserVM vMs)
+        public async Task<IActionResult> Delete(string id, LinkPageUserVM vMs)
         {
             var product = await _userService.Delete(id,vMs);
             await _context.SaveChangesAsync();

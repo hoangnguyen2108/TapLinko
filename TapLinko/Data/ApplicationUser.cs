@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using TapLinko.Models;
 
 namespace TapLinko.Data
 {
@@ -7,5 +8,8 @@ namespace TapLinko.Data
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public DateOnly? DateofBirth { get; set; }
+
+        public LinkPage? LinkPage { get; set; }
+
     }
 }

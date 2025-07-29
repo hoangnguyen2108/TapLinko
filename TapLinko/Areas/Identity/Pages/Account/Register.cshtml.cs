@@ -2,14 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +11,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading;
+using System.Threading.Tasks;
 using TapLinko.Data;
+using TapLinko.Models;
 
 namespace TapLinko.Areas.Identity.Pages.Account
 {
@@ -31,6 +32,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
@@ -39,6 +41,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
             RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            ApplicationDbContext context,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -47,6 +50,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            this._context = context;
             _emailSender = emailSender;
         }
 
@@ -153,6 +157,19 @@ namespace TapLinko.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    // ✅ Auto-create LinkPage
+                    var linkPage = new LinkPage
+                    {
+                        UserId = user.Id,
+                        LinkPageTitle = $"{user.FirstName} {user.LastName}'s Page",
+                        Bio = "Welcome to my link page!",
+                        ProfileImageUrl = "/image/image.jpeg",
+                        BannerImageUrl = "/image/image.jpeg"
+                    };
+
+                    _context.LinkPages.Add(linkPage);
+                    await _context.SaveChangesAsync();
 
                     await _userManager.AddToRoleAsync(user, Input.RoleName);
                     if(Input.RoleName == "SUPERVISOR")

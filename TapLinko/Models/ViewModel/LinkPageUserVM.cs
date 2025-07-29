@@ -3,7 +3,7 @@
     public class LinkPageUserVM
     {
         public int LinkPageId { get; set; }
-        public int UserId { get; set; }
+        public string? UserId { get; set; }
 
         public string? LinkPageTitle { get; set; }
         public string? Bio { get; set; }

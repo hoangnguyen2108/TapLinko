@@ -44,7 +44,7 @@ namespace TapLinko.Services
 
         // Mostly for Get 
 
-        public async Task<LinkPageUserVM> GetDetail(int id)
+        public async Task<LinkPageUserVM> GetDetail(string id)
         {
             var product = await _context.LinkPages.FindAsync(id);
 
@@ -62,7 +62,7 @@ namespace TapLinko.Services
                 ProfileImageUrl = product.ProfileImageUrl,
                 BannerImageUrl = product.BannerImageUrl,
                 UserId = product.UserId,
-                Name = user?.Name
+                Name = user?.UserName
 
             };
 
@@ -71,7 +71,7 @@ namespace TapLinko.Services
         }
 
         // Edit 
-        public async Task<bool> Edit(int id, LinkPageUserVM vMs)
+        public async Task<bool> Edit(string id, LinkPageUserVM vMs)
         {
 
             var product = await _context.LinkPages.FindAsync(id);
@@ -91,7 +91,7 @@ namespace TapLinko.Services
         }
 
         // Delete 
-        public async Task<bool> Delete(int id, LinkPageUserVM vMs)
+        public async Task<bool> Delete(string id, LinkPageUserVM vMs)
         {
             var product = await _context.LinkPages.FindAsync(id);
 

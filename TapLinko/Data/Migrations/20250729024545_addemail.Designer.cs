@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TapLinko.Data;
 
@@ -11,9 +12,11 @@ using TapLinko.Data;
 namespace TapLinko.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250729024545_addemail")]
+    partial class addemail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,27 +270,9 @@ namespace TapLinko.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "989eb43a-82b3-43a2-b29b-1e14488286fe",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8698dadb-5b14-489e-bea9-cfb52ea1a15e",
-                            Email = "alice@example.com",
-                            EmailConfirmed = true,
-                            FirstName = "Alice",
-                            LastName = "Nguyen",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ALICE@EXAMPLE.COM",
-                            NormalizedUserName = "ALICE@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMklaZNj/hSmZZoH+yAeOhuL0k+03tfNLsEl7N4Gfk539WiWKw5Rg8WK4Ih+eWn/IA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ed1b03a-3846-429c-83e9-347434db5b6c",
-                            TwoFactorEnabled = false,
-                            UserName = "alice@example.com"
-                        },
-                        new
-                        {
                             Id = "69321195-8b73-4f1a-919b-e7deee4b3909",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "66efb1c8-d56e-4d99-b134-2a246376807f",
+                            ConcurrencyStamp = "ba460905-ed83-435b-b6a6-25dd450b199d",
                             DateofBirth = new DateOnly(1990, 1, 1),
                             Email = "user1adin@gmail.com",
                             EmailConfirmed = true,
@@ -296,9 +281,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1admin@GMAIL.COM",
                             NormalizedUserName = "USER1admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGaUJ56ijzvShWC7B3pusjbFWyOzj9TJWzV/mGbCI/j84S+pcBoXet8eJq5+LLxDfw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1AXYEvm5LwaoAbgj51N1jFPdSjFdVZ2LvM6ISKt+HGvl9UT1JyUxMTYxUhiYgY7w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1be4c1b-e72c-4766-9233-3b89dc40207b",
+                            SecurityStamp = "88dcd345-345d-41b0-abba-393ced77a0f0",
                             TwoFactorEnabled = false,
                             UserName = "user1admin"
                         },
@@ -306,7 +291,7 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "bdee7c76-d0b8-4ff2-908c-f80177687964",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44d38326-0c10-415b-9aa6-e59e86ae87d0",
+                            ConcurrencyStamp = "aa6890cf-8745-4f84-9fc5-b930e4047767",
                             DateofBirth = new DateOnly(1992, 2, 2),
                             Email = "user2sup@gmail.com",
                             EmailConfirmed = true,
@@ -315,9 +300,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2SUP@GMAIL.COM",
                             NormalizedUserName = "USER2SUP",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPHIggEjTnL47paJCrQELGHQPSXzWDntrLUyfZxfxE+fuTEGCQAX1Jgf96hKgRLkCw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN9r7nbWBs2SjgKxR8zDOoeSjfSzldv6GXKCbr2oWpJNQ4o49qZA4rwt/kgWRLnPKA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83e03a8d-c656-4712-b098-74c9cabd1054",
+                            SecurityStamp = "09de1b11-f7e5-468d-890f-758b29fa4bb6",
                             TwoFactorEnabled = false,
                             UserName = "user2sup"
                         });
@@ -423,14 +408,13 @@ namespace TapLinko.Data.Migrations
                     b.Property<string>("ProfileImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LinkPageId");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("LinkPages");
 
@@ -442,7 +426,36 @@ namespace TapLinko.Data.Migrations
                             Bio = "Welcome to my page! 💖",
                             LinkPageTitle = "Alice's Bio",
                             ProfileImageUrl = "/image/image.jpeg",
-                            UserId = "989eb43a-82b3-43a2-b29b-1e14488286fe"
+                            UserId = 1
+                        });
+                });
+
+            modelBuilder.Entity("TapLinko.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Name = "Alice Nguyen"
                         });
                 });
 
@@ -521,16 +534,13 @@ namespace TapLinko.Data.Migrations
 
             modelBuilder.Entity("TapLinko.Models.LinkPage", b =>
                 {
-                    b.HasOne("TapLinko.Data.ApplicationUser", "ApplicationUser")
+                    b.HasOne("TapLinko.Models.User", "User")
                         .WithOne("LinkPage")
-                        .HasForeignKey("TapLinko.Models.LinkPage", "UserId");
+                        .HasForeignKey("TapLinko.Models.LinkPage", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("TapLinko.Data.ApplicationUser", b =>
-                {
-                    b.Navigation("LinkPage");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TapLinko.Models.LinkItem", b =>
@@ -541,6 +551,11 @@ namespace TapLinko.Data.Migrations
             modelBuilder.Entity("TapLinko.Models.LinkPage", b =>
                 {
                     b.Navigation("LinkItems");
+                });
+
+            modelBuilder.Entity("TapLinko.Models.User", b =>
+                {
+                    b.Navigation("LinkPage");
                 });
 #pragma warning restore 612, 618
         }

@@ -116,7 +116,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToRoute(new { controller = "Account", action = "Index" });
                 }
                 if (result.RequiresTwoFactor)
                 {

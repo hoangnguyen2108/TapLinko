@@ -34,10 +34,10 @@ namespace TapLinko.Controllers
         public async Task<IActionResult> Create()
         {
             var users = await _context.Users
-       .Select(u => new { u.UserId, u.Name })
+       .Select(u => new { u.Id, u.UserName })
        .ToListAsync();
 
-            ViewBag.Users = new SelectList(users, "UserId", "Name");
+            ViewBag.Users = new SelectList(users, "Id", "UserName");
             return View();
         }
 
@@ -56,16 +56,16 @@ namespace TapLinko.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var users = await _context.Users
-            .Select(u => new { u.UserId, u.Name })
-            .ToListAsync();
-            ViewBag.Users = new SelectList(users, "UserId", "Name");
+       .Select(u => new { u.Id, u.UserName })
+       .ToListAsync();
+            ViewBag.Users = new SelectList(users, "Id", "UserName");
 
             return View(vMs);
         }
 
         // Detail 
         [HttpGet]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(string id)
         {
             var product = await _linkPageService.GetDetail(id);        
             return View(product);          
@@ -75,7 +75,7 @@ namespace TapLinko.Controllers
         // Edit 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             var product = await _linkPageService.GetDetail(id);
             return View(product);
@@ -84,7 +84,7 @@ namespace TapLinko.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int id, LinkPageUserVM vMs)
+        public async Task<IActionResult> Edit(string id, LinkPageUserVM vMs)
         {
             if(await _linkPageService.IsDuplicateLinkPageAsync(vMs))
             {
@@ -100,7 +100,7 @@ namespace TapLinko.Controllers
         // Delete
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var product = await _linkPageService.GetDetail(id);
             return View(product);
@@ -108,7 +108,7 @@ namespace TapLinko.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, LinkPageUserVM vMs)
+        public async Task<IActionResult> Delete(string id, LinkPageUserVM vMs)
         {
             await _linkPageService.Delete(id,vMs);
             return RedirectToAction(nameof(Index));

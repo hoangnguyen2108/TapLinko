@@ -12,7 +12,7 @@ namespace TapLinko.Data
         {
         }
 
-        public DbSet<User> Users {  get; set; }
+        public DbSet<ApplicationUser> Users {  get; set; }
         public DbSet<LinkPage> LinkPages { get; set; }
         public DbSet<LinkItem> LinkItems { get; set; }
         public DbSet<ClickEvent> ClickEvents { get; set; }
@@ -22,7 +22,7 @@ namespace TapLinko.Data
             base.OnModelCreating(builder);
 
             builder.Entity<LinkPage>()
-                .HasOne(c => c.User)
+                .HasOne(c => c.ApplicationUser)
                 .WithOne(c => c.LinkPage)
                 .HasForeignKey<LinkPage>(c => c.UserId);
 
@@ -35,13 +35,20 @@ namespace TapLinko.Data
                 .HasOne(c => c.LinkItem)
                 .WithMany(c => c.ClickEvents)
                 .HasForeignKey(c => c.LinkItemId);
-
+            var hasher1 = new PasswordHasher<ApplicationUser>();
             // Seed a test user
-            builder.Entity<User>().HasData(
-                new User
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
                 {
-                    UserId = 1,
-                    Name = "Alice Nguyen"
+                    Id = "989eb43a-82b3-43a2-b29b-1e14488286fe",
+                    UserName = "alice@example.com", // Required
+                    NormalizedUserName = "ALICE@EXAMPLE.COM", // Required
+                    Email = "alice@example.com", // Required
+                    NormalizedEmail = "ALICE@EXAMPLE.COM", // Required
+                    EmailConfirmed = true,
+                    FirstName = "Alice",
+                    LastName = "Nguyen",
+                    PasswordHash = hasher1.HashPassword(null!, "Password123!") // Required for login
                 }
             );
 
@@ -113,7 +120,7 @@ namespace TapLinko.Data
                 new LinkPage
                 {
                     LinkPageId = 1,
-                    UserId = 1,
+                    UserId = "989eb43a-82b3-43a2-b29b-1e14488286fe",
                     LinkPageTitle = "Alice's Bio",
                     Bio = "Welcome to my page! 💖",
                     ProfileImageUrl = "/image/image.jpeg",
