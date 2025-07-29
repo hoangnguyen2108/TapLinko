@@ -1,0 +1,44 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+
+@{
+    ViewData["Title"] = "Create Link Item";
+}
+
+<h2>Create Link Item</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="Create" asp-route-id="@Model.LinkPageId" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Label" class="form-label"></label>
+                <input asp-for="Label" class="form-control" />
+                <span asp-validation-for="Label" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Url" class="form-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Order" class="form-label"></label>
+                <input asp-for="Order" class="form-control" type="number" min="1" max="@(Model.MaxOrder + 1)" value="@(Model.MaxOrder + 1)" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="LinkPageId" />
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

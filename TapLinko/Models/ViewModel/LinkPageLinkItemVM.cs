@@ -15,5 +15,6 @@
         public string? Url { get; set; }
         public int Order { get; set; }
         public int ClickCount { get; set; }
+        public int MaxOrder { get; set; }
     }
 }

@@ -7,5 +7,8 @@
 
         public List<ClickEvent> ClickEvents { get; set; }
         public List<LinkItemAnalyticsVM> LinkItemAnalyticsVMs { get;set;}
+
+        public List<LinkPage> LinkPages { get; set; }
+        
     }
 }

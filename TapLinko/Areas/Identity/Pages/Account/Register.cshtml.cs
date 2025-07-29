@@ -161,6 +161,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
                     // ✅ Auto-create LinkPage
                     var linkPage = new LinkPage
                     {
+                        
                         UserId = user.Id,
                         LinkPageTitle = $"{user.FirstName} {user.LastName}'s Page",
                         Bio = "Welcome to my link page!",

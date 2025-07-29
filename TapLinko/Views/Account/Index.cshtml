@@ -1,23 +1,59 @@
-﻿@model TapLinko.Models.LinkPage
+﻿@model TapLinko.Models.ViewModel.ViewModel
 
 @{
     ViewData["Title"] = "My Link Page";
+    var linkPage = Model.LinkPages.FirstOrDefault();
 }
 
-<div class="card shadow p-4 mb-4">
-    <h2>@Model.LinkPageTitle</h2>
-
-   
-
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <img src="@Model.ProfileImageUrl" alt="Profile" class="rounded-circle" width="100" height="100" />
-        <div>
-            <p class="mb-1"><strong>Bio:</strong></p>
-            <p>@Model.Bio</p>
+<div class="container mt-5">
+    @if (linkPage != null)
+    {
+        <!-- LinkPage Card -->
+        <div class="card shadow mb-4">
+            <img src="@linkPage.BannerImageUrl" class="card-img-top" alt="Banner" style="height: 200px; object-fit: cover;" />
+            <div class="card-body text-center">
+                <img src="@linkPage.ProfileImageUrl" class="rounded-circle border border-2" width="100" height="100" alt="Profile" />
+                <h2 class="mt-3">@linkPage.LinkPageTitle</h2>
+                <p class="text-muted">@linkPage.Bio</p>
+            </div>
         </div>
-    </div>
 
-    <a asp-controller="LinkPage" asp-action="Edit" asp-route-id="@Model.LinkPageId" class="btn btn-secondary">
-        Edit Link Page
-    </a>
+        <!-- Buttons -->
+        <div class="mb-4 text-end">
+            <a asp-controller="Account" asp-action="Detail" asp-route-id="@linkPage.LinkPageId" class="btn btn-outline-primary me-2">
+                Extract Link
+            </a>
+            <a asp-controller="Account" asp-action="Create" asp-route-id="@linkPage.LinkPageId" class="btn btn-primary">
+                Create New
+            </a>
+        </div>
+
+        <!-- Link Items List -->
+        <h4 class="mb-3">Your Links</h4>
+        @if (Model.LinkPageLinkItemVMs.Any())
+        {
+            <ul class="list-group">
+                @foreach (var item in Model.LinkPageLinkItemVMs.OrderBy(x => x.Order))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@item.Label</strong><br />
+                            <a href="@item.Url" target="_blank">@item.Url</a>
+                        </div>
+                        <span class="badge bg-secondary rounded-pill">#@item.Order</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">You don't have any links yet.</p>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            No LinkPage found for your account.
+        </div>
+    }
 </div>
