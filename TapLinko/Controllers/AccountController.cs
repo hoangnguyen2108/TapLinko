@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapLinko.Models;
+using TapLinko.Models.ViewModel;
 
 [Authorize]
 public class AccountController : Controller
@@ -15,7 +16,7 @@ public class AccountController : Controller
         _context = context;
         _userManager = userManager;
     }
-
+    // Index
     public async Task<IActionResult> Index()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -41,5 +42,29 @@ public class AccountController : Controller
         }
 
         return View(linkPage); // ✅ pass the LinkPage to the view
+    }
+
+    // Detail
+
+    public async Task<IActionResult> Detail (string id)
+    {
+        var product = await _context.LinkPages.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var model = new LinkPageLinkItemVM
+        {
+            LinkPageTitle = product.LinkPageTitle,
+            Bio = product.Bio,
+            ProfileImageUrl = product.ProfileImageUrl
+        };
+
+        var modelLinkItem = new LinkPageLinkItemVM
+        {
+
+        };
+        return View();
     }
 }

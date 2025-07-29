@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TapLinko.Data;
 using TapLinko.Models;
@@ -9,8 +10,10 @@ namespace TapLinko.Services
     public class LinkPageService : ILinkPageService
     {
         private ApplicationDbContext _context;
-        public LinkPageService(ApplicationDbContext context)
+        private UserManager<ApplicationUser> _userManager;
+        public LinkPageService(UserManager<ApplicationUser> userManager,ApplicationDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
         // LinkPage 
@@ -46,10 +49,13 @@ namespace TapLinko.Services
 
         public async Task<LinkPageUserVM> GetDetail(string id)
         {
-            var product = await _context.LinkPages.FindAsync(id);
+            var product = await _context.LinkPages
+                    
+                     .FirstOrDefaultAsync(lp => lp.LinkPageId.ToString() == id);
 
             if (product == null)
             {
+                
                 return null;
             }
             var user = await _context.Users.FindAsync(product.UserId);
@@ -74,7 +80,9 @@ namespace TapLinko.Services
         public async Task<bool> Edit(string id, LinkPageUserVM vMs)
         {
 
-            var product = await _context.LinkPages.FindAsync(id);
+            var product = await _context.LinkPages
+
+                    .FirstOrDefaultAsync(lp => lp.LinkPageId.ToString() == id);
 
             if (product == null)
             {
@@ -93,7 +101,9 @@ namespace TapLinko.Services
         // Delete 
         public async Task<bool> Delete(string id, LinkPageUserVM vMs)
         {
-            var product = await _context.LinkPages.FindAsync(id);
+            var product = await _context.LinkPages
+
+                    .FirstOrDefaultAsync(lp => lp.LinkPageId.ToString() == id);
 
             if (product == null)
             {
