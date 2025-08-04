@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using TapLinko.Models;
 using TapLinko.Models.ViewModel;
 
@@ -34,7 +35,7 @@ public class AccountController : Controller
             {
                 UserId = user.Id,
                 LinkPageTitle = $"{user.FirstName} {user.LastName}'s Page",
-                Bio = "Welcome to my link page!",
+                Bio = "Welcome To My Link Page!",
                 ProfileImageUrl = "/image/image.jpeg",
                 BannerImageUrl = "/image/image.jpeg"
             };
@@ -68,21 +69,39 @@ public class AccountController : Controller
 
     public async Task<IActionResult> Detail(int id)
     {
-        var product = await _context.LinkPages.FirstOrDefaultAsync(c => c.LinkPageId == id);
-        if (product == null)
+        var linkPage = await _context.LinkPages
+            .FirstOrDefaultAsync(lp => lp.LinkPageId == id);
+
+        if (linkPage == null)
         {
             return NotFound();
         }
 
         var model = new LinkPageLinkItemVM
         {
-            LinkPageTitle = product.LinkPageTitle,
-            Bio = product.Bio,
-            ProfileImageUrl = product.ProfileImageUrl
+            LinkPageTitle = linkPage.LinkPageTitle,
+            Bio = linkPage.Bio,
+            ProfileImageUrl = linkPage.ProfileImageUrl
         };
 
+        var linkItems = await _context.LinkItems
+            .Where(c => c.LinkPageId == linkPage.LinkPageId)
+            .Select(c => new LinkPageLinkItemVM
+            {
+                LinkItemId = c.LinkItemId,
+                Label = c.Label,
+                Url = c.Url,
+                Order = c.Order
+            })
+            .ToListAsync();
 
-        return View(model);
+        var viewModel = new ViewModel
+        {
+            LinkPageLinkItemVMs = new List<LinkPageLinkItemVM> { model },
+            LinkPageLinkItemVMs1 = linkItems
+        };
+
+        return View(viewModel);
     }
 
     // Create Link Item
@@ -172,5 +191,125 @@ public class AccountController : Controller
             Console.WriteLine(ex.Message);
             return View(vMs);
         }
+
+        
+    }
+    // Edit 
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var product = await _context.LinkItems.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var linkPageId = product.LinkPageId;
+
+        var maxOrder = await _context.LinkItems
+            .Where(c => c.LinkPageId == linkPageId)
+            .MaxAsync(c => (int?)c.Order) ?? 0;
+
+        var model = new LinkPageLinkItemVM
+        {
+            LinkItemId = product.LinkItemId,
+            Label = product.Label,
+            Url = product.Url,
+            Order = product.Order,
+            MaxOrder = maxOrder
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, LinkPageLinkItemVM vMs)
+    {
+        var item = await _context.LinkItems.FindAsync(id);
+        if (item == null) return NotFound();
+
+        var linkPageId = item.LinkPageId;
+
+        // Validate new order
+        var totalItems = await _context.LinkItems
+            .Where(c => c.LinkPageId == linkPageId)
+            .CountAsync();
+
+        if (vMs.Order <= 0 || vMs.Order > totalItems)
+        {
+            ModelState.AddModelError("Order", $"Order must be between 1 and {totalItems}");
+            return View(vMs);
+        }
+
+        // If the order is changing, update others
+        if (item.Order != vMs.Order)
+        {
+            var direction = vMs.Order > item.Order ? -1 : 1;
+
+            var itemsToShift = await _context.LinkItems
+                .Where(c => c.LinkPageId == linkPageId
+                            && c.LinkItemId != id
+                            && c.Order >= Math.Min(item.Order, vMs.Order)
+                            && c.Order <= Math.Max(item.Order, vMs.Order))
+                .ToListAsync();
+
+            foreach (var shift in itemsToShift)
+            {
+                shift.Order += direction;
+            }
+
+            _context.LinkItems.UpdateRange(itemsToShift);
+        }
+
+        item.Label = vMs.Label;
+        item.Url = vMs.Url;
+        item.Order = vMs.Order;
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index", "Account", new { id = id });
+    }
+    // Delete 
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var product = await _context.LinkItems.FindAsync(id);
+
+        if(product == null)
+        {
+            return NotFound();
+        }
+
+        var model = new LinkPageLinkItemVM
+        {
+
+            Label = product.Label,
+            Url = product.Url,
+            Order = product.Order,
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id,LinkPage vm)
+    {
+        var item = await _context.LinkItems.FindAsync(id);
+        if (item == null) return NotFound();
+
+        var itemsToShift = await _context.LinkItems
+            .Where(c => c.LinkPageId == item.LinkPageId && c.Order > item.Order)
+            .ToListAsync();
+
+        foreach (var shiftItem in itemsToShift)
+            shiftItem.Order -= 1;
+
+        _context.LinkItems.Remove(item);
+        _context.LinkItems.UpdateRange(itemsToShift);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
     }
 }

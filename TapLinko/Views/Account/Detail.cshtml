@@ -1,37 +1,48 @@
-﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+﻿@model TapLinko.Models.ViewModel.ViewModel
 
 @{
-    Layout = null; // or set a layout if you want to use shared styles
     ViewData["Title"] = "Link Page Detail";
+    var linkInfo = Model.LinkPageLinkItemVMs.FirstOrDefault(); // General info
 }
 
 <div class="container mt-5">
-    <div class="card shadow border-0">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">@Model.LinkPageTitle</h4>
-        </div>
-
-        <div class="card-body">
-            <div class="text-center mb-4">
-                @if (!string.IsNullOrEmpty(Model.ProfileImageUrl))
-                {
-                    <img src="@Model.ProfileImageUrl" alt="Profile Image" class="rounded-circle border" width="100" height="100" />
-                }
-                else
-                {
-                    <div class="text-muted">No profile image provided</div>
-                }
-            </div>
-
-            <div class="mb-3">
-                <h5>Bio</h5>
-                <p>@Model.Bio</p>
+    @if (linkInfo != null)
+    {
+        <!-- Banner -->
+        <div class="card shadow mb-4">
+            <img src="@linkInfo.ProfileImageUrl" class="card-img-top" alt="Banner" style="height: 200px; object-fit: cover;" />
+            <div class="card-body text-center">
+                <h2 class="mt-3">@linkInfo.LinkPageTitle</h2>
+                <p class="text-muted">@linkInfo.Bio</p>
             </div>
         </div>
 
-        
-        <div class="card-footer text-end">
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <!-- Link Items -->
+        <h4 class="mb-3">Shared Links</h4>
+        @if (Model.LinkPageLinkItemVMs1 != null && Model.LinkPageLinkItemVMs1.Any())
+        {
+            <ul class="list-group">
+                @foreach (var item in Model.LinkPageLinkItemVMs1.OrderBy(x => x.Order))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@item.Label</strong><br />
+                            <a href="@item.Url" target="_blank">@item.Url</a>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">#@item.Order</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">No links available.</p>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            No link page data found.
         </div>
-    </div>
+    }
 </div>

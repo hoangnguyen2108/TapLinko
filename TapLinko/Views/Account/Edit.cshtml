@@ -1,0 +1,40 @@
+﻿@model TapLinko.Models.ViewModel.LinkPageLinkItemVM
+
+@{
+    ViewData["Title"] = "Edit Link Item";
+}
+
+<div class="container mt-5">
+    <h2>Edit Link Item</h2>
+    <hr />
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" name="id" value="@Model.LinkItemId" />
+        <input type="hidden" asp-for="MaxOrder" />
+
+        <div class="mb-3">
+            <label asp-for="Label" class="form-label"></label>
+            <input asp-for="Label" class="form-control" />
+            <span asp-validation-for="Label" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Url" class="form-label"></label>
+            <input asp-for="Url" class="form-control" />
+            <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Order" class="form-label"></label>
+            <input asp-for="Order" class="form-control" type="number" min="1" max="@(Model.MaxOrder)" value="@(Model.Order)" />
+            <span asp-validation-for="Order" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

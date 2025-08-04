@@ -20,13 +20,17 @@
 
         <!-- Buttons -->
         <div class="mb-4 text-end">
-            <a asp-controller="Account" asp-action="Detail" asp-route-id="@linkPage.LinkPageId" class="btn btn-outline-primary me-2">
-                Extract Link
+            <a asp-controller="Account" asp-action="Detail" asp-route-id="@linkPage.LinkPageId" class="btn btn-primary">
+                Extract Link to Public
             </a>
+
             <a asp-controller="Account" asp-action="Create" asp-route-id="@linkPage.LinkPageId" class="btn btn-primary">
                 Create New
             </a>
         </div>
+
+        <!-- Container where AJAX-loaded detail will be injected -->
+        <div id="detailContainer" class="mb-4"></div>
 
         <!-- Link Items List -->
         <h4 class="mb-3">Your Links</h4>
@@ -40,7 +44,16 @@
                             <strong>@item.Label</strong><br />
                             <a href="@item.Url" target="_blank">@item.Url</a>
                         </div>
-                        <span class="badge bg-secondary rounded-pill">#@item.Order</span>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-secondary rounded-pill">#@item.Order</span>
+                            <a asp-controller="Account" asp-action="Delete" asp-route-id="@item.LinkItemId" class="btn btn-danger btn-sm ms-2">
+                                Delete
+                            </a>
+
+                            <a asp-controller="Account" asp-action="Edit" asp-route-id="@item.LinkItemId" class="btn btn-warning btn-sm ms-2">
+                                Edit
+                            </a>
+                        </div>
                     </li>
                 }
             </ul>
@@ -57,3 +70,23 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on("click", ".extract-link-btn", function () {
+            var id = $(this).data("id");
+
+            $.ajax({
+                url: '/Account/Detail/' + id,
+                type: 'GET',
+                success: function (result) {
+                    $("#detailContainer").html(result);
+                },
+                error: function () {
+                    alert("Failed to load details.");
+                }
+            });
+        });
+    </script>
+}
