@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔗 @ViewData["Title"] - TapLinko</title>
+
+    <!-- Google Font + Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TapLinko.styles.css" asp-append-version="true" />
+
+    <style>
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1e1f36, #3a0ca3);
+            --brand-color: #cccccc;
+            --brand-hover: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background: var(--gradient-bg);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-text {
+            color: var(--brand-color);
+            font-weight: 700;
+            font-size: 1.8rem;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+            .brand-text:hover {
+                color: var(--brand-hover);
+                text-decoration: none;
+            }
+
+        main {
+            flex-grow: 1;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+        }
+
+        .btn-primary,
+        .btn-outline-primary:hover {
+            background-color: #4a00e0;
+            border-color: #4a00e0;
+        }
+
+        .btn-outline-primary {
+            color: #4a00e0;
+            border-color: #4a00e0;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #4a00e0;
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+    <!-- Branded Heading -->
+    <div class="text-center pt-5">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-text">TapLinko</a>
+    </div>
+
+    <!-- Main Content -->
+    <main role="main" class="container py-4 px-3 px-lg-5">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer text-center py-3 mt-auto border-top">
+        <div class="container">
+            &copy; 2025 - TapLinko - <a class="text-light text-decoration-underline" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

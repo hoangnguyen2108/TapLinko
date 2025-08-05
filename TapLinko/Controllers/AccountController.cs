@@ -67,6 +67,7 @@ public class AccountController : Controller
 
     // Detail
 
+    [HttpGet("/view/{id}")]
     public async Task<IActionResult> Detail(int id)
     {
         var linkPage = await _context.LinkPages

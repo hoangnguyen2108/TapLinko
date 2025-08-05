@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TapLinko</title>
+    <title>@ViewData["Title"] </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TapLinko.styles.css" asp-append-version="true" />
@@ -78,27 +78,7 @@
 
     <!-- Sidebar and main layout -->
     <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <nav class="nav flex-column mb-3">
-
-                @if (User.IsInRole("Supervisor"))
-                {
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">🏠 Home</a>
-                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">👤 User Web</a>
-                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Create">➕ Add More User</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkPage" asp-action="Index">🔗 Link Page</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkPage" asp-action="Create">➕ Add Link Page</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkItem" asp-action="Index">📄 Link Item</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkItem" asp-action="Create">➕ Add Link Item</a>
-                    <a class="nav-link" asp-area="" asp-controller="Analytic" asp-action="Index">📊 Analytics</a>
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">🔐 Privacy</a>
-                }
-                
-            </nav>
-
-
-        </aside>
+       
 
         <!-- Main content -->
         <main role="main">

@@ -1,8 +1,69 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    ViewData["Title"] = "Taplinko";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Home Page Styling -->
+<style>
+    body {
+        background: linear-gradient(to bottom, #f0f2f5, #ffffff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .hero-title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #666;
+    }
+
+    .cta-btn {
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .nfc-card-img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .promo-section {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+<div class="container py-5 px-3 text-center">
+
+    <!-- Hero Section -->
+    <div class="mb-5">
+        <h1 class="hero-title mb-3">Your Digital Identity, Simplified</h1>
+        <p class="hero-subtitle mb-4">Create a shareable link with all your profiles, just like Linktree — and go beyond with NFC!</p>
+        <a asp-controller="Account" asp-action="Index" class="btn btn-primary cta-btn">
+            Get Started for Free
+        </a>
+    </div>
+
+    <!-- NFC Card Promo Section -->
+    <div class="promo-section mt-5 mx-auto" style="max-width: 900px;">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="~/image/nfc-card-promo.jpg" alt="NFC Card" class="nfc-card-img" />
+            </div>
+            <div class="col-md-6 text-md-start text-center">
+                <h3 class="fw-bold">🚀 Upgrade to NFC</h3>
+                <p class="text-muted">Tap into the future. Our custom NFC cards let you share your profile instantly — just one tap to connect.</p>
+               
+            </div>
+        </div>
+    </div>
+
 </div>

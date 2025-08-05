@@ -80,23 +80,18 @@
     <div class="main-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <nav class="nav flex-column mb-3">
+            <!-- NFC Promo Card -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-                @if (User.IsInRole("Supervisor"))
-                {
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">🏠 Home</a>
-                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">👤 User Web</a>
-                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Create">➕ Add More User</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkPage" asp-action="Index">🔗 Link Page</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkPage" asp-action="Create">➕ Add Link Page</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkItem" asp-action="Index">📄 Link Item</a>
-                    <a class="nav-link" asp-area="" asp-controller="LinkItem" asp-action="Create">➕ Add Link Item</a>
-                    <a class="nav-link" asp-area="" asp-controller="Analytic" asp-action="Index">📊 Analytics</a>
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">🔐 Privacy</a>
-                }
-                
-            </nav>
-
+            <div class="card animate__animated animate__pulse animate__infinite shadow-sm mb-4">
+                <img src="~/image/nfc-card-promo.jpg" class="card-img-top" alt="NFC Card">
+                <div class="card-body text-center">
+                    <h6 class="card-title">🚀 Upgrade to NFC!</h6>
+                    <p class="card-text small">Share your profile with a tap using our smart NFC card.</p>
+                    <p class="card-text small">Custom NFC cards are available.</p>
+                    <a href="/nfc" class="btn btn-sm btn-primary">Learn More</a>
+                </div>
+            </div>
 
         </aside>
 

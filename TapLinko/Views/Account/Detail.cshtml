@@ -1,47 +1,65 @@
 ﻿@model TapLinko.Models.ViewModel.ViewModel
 
 @{
-    ViewData["Title"] = "Link Page Detail";
+    Layout = "~/Views/Shared/_UserPublicLayout.cshtml";
     var linkInfo = Model.LinkPageLinkItemVMs.FirstOrDefault(); // General info
 }
 
-<div class="container mt-5">
+<style>
+    body {
+        background: linear-gradient(to bottom, #f0f2f5, #ffffff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .link-button {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .link-button:hover {
+            transform: scale(1.02);
+            background-color: #f0f0f0;
+        }
+
+    .page-title {
+        color: #cccccc;
+    }
+
+    .page-bio {
+        color: #aaaaaa;
+    }
+</style>
+
+<div class="container py-5 px-3">
     @if (linkInfo != null)
     {
-        <!-- Banner -->
-        <div class="card shadow mb-4">
-            <img src="@linkInfo.ProfileImageUrl" class="card-img-top" alt="Banner" style="height: 200px; object-fit: cover;" />
-            <div class="card-body text-center">
-                <h2 class="mt-3">@linkInfo.LinkPageTitle</h2>
-                <p class="text-muted">@linkInfo.Bio</p>
-            </div>
+        <!-- Page Title & Bio -->
+        <div class="text-center mb-5">
+            <h1 class="fw-bold page-title fs-1">@linkInfo.LinkPageTitle</h1>
+            <p class="page-bio fs-5">@linkInfo.Bio</p>
         </div>
 
-        <!-- Link Items -->
-        <h4 class="mb-3">Shared Links</h4>
-        @if (Model.LinkPageLinkItemVMs1 != null && Model.LinkPageLinkItemVMs1.Any())
-        {
-            <ul class="list-group">
+        <!-- Shared Links -->
+        <div class="d-flex flex-column align-items-center gap-3">
+            @if (Model.LinkPageLinkItemVMs1 != null && Model.LinkPageLinkItemVMs1.Any())
+            {
                 @foreach (var item in Model.LinkPageLinkItemVMs1.OrderBy(x => x.Order))
                 {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>@item.Label</strong><br />
-                            <a href="@item.Url" target="_blank">@item.Url</a>
-                        </div>
-                        <span class="badge bg-primary rounded-pill">#@item.Order</span>
-                    </li>
+                    <a href="@item.Url" target="_blank"
+                       class="btn btn-outline-dark link-button w-100 py-3 shadow-sm text-decoration-none fw-semibold"
+                       style="max-width: 600px;">
+                        @item.Label
+                    </a>
                 }
-            </ul>
-        }
-        else
-        {
-            <p class="text-muted">No links available.</p>
-        }
+            }
+            else
+            {
+                <p class="text-muted text-center">No links available.</p>
+            }
+        </div>
     }
     else
     {
-        <div class="alert alert-warning">
+        <div class="alert alert-warning text-center">
             No link page data found.
         </div>
     }
