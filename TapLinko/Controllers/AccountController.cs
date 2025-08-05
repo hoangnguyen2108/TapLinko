@@ -67,11 +67,11 @@ public class AccountController : Controller
 
     // Detail
 
-    [HttpGet("/view/{id}")]
-    public async Task<IActionResult> Detail(int id)
+    [HttpGet("/view/{slug}")]
+    public async Task<IActionResult> Detail(string slug)
     {
         var linkPage = await _context.LinkPages
-            .FirstOrDefaultAsync(lp => lp.LinkPageId == id);
+        .FirstOrDefaultAsync(lp => lp.PublicSlug == slug);
 
         if (linkPage == null)
         {

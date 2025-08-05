@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using TapLinko.Data;
@@ -166,14 +167,15 @@ namespace TapLinko.Areas.Identity.Pages.Account
                         LinkPageTitle = $"{user.FirstName} {user.LastName}'s Page",
                         Bio = "Welcome to my link page!",
                         ProfileImageUrl = "/image/image.jpeg",
-                        BannerImageUrl = "/image/image.jpeg"
+                        BannerImageUrl = "/image/image.jpeg",
+                       
                     };
-
+                    linkPage.PublicSlug = GenerateSlug(linkPage.LinkPageTitle);
                     _context.LinkPages.Add(linkPage);
                     await _context.SaveChangesAsync();
 
-                    await _userManager.AddToRoleAsync(user, Input.RoleName);
-                    if(Input.RoleName == "SUPERVISOR")
+                    await _userManager.AddToRoleAsync(user, "EMPLOYEE");
+                    if (Input.RoleName == "SUPERVISOR")
                     {
                         await _userManager.AddToRolesAsync(user, ["EMPLOYEE", "SUPERVISOR"]);
                     }
@@ -209,7 +211,25 @@ namespace TapLinko.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+        public static string GenerateSlug(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return Guid.NewGuid().ToString();
 
+            // Convert to lowercase
+            string slug = input.ToLowerInvariant();
+
+            // Remove invalid characters
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+
+            // Replace spaces with hyphens
+            slug = Regex.Replace(slug, @"\s+", "-").Trim('-');
+
+            // Append a short random suffix for uniqueness
+            string suffix = Guid.NewGuid().ToString("N").Substring(0, 6);
+
+            return $"{slug}-{suffix}";
+        }
         private ApplicationUser CreateUser()
         {
             try

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     ViewData["Title"] = "My Link Page";
     var linkPage = Model.LinkPages.FirstOrDefault();
-    var publicUrl = $"{Context.Request.Scheme}://{Context.Request.Host}/view/{linkPage.LinkPageId}";
+    var publicUrl = $"{Context.Request.Scheme}://{Context.Request.Host}/view/{linkPage.PublicSlug}";
 }
 
 <!-- Styling for modern look -->

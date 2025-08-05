@@ -269,7 +269,7 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "989eb43a-82b3-43a2-b29b-1e14488286fe",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1093ca4a-e36a-4cac-8de7-5b60cc31609f",
+                            ConcurrencyStamp = "01e03f4e-e340-4ae8-a97f-ef76eacb3cd2",
                             Email = "alice@example.com",
                             EmailConfirmed = true,
                             FirstName = "Alice",
@@ -277,9 +277,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ALICE@EXAMPLE.COM",
                             NormalizedUserName = "ALICE@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIbuWlL86v+5mffj45RtpUnnUY09z1cbPrReYQnpLcqlgog4I3O1Iw9SLnJKaQ7efg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHRaE5457JJdHqMiag7kMOokO6E1wU6IujEIKC/xqtCEhGLQplXFxOZoSwtlqptHzQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3e8f1305-db54-4d25-a0fd-95f6266bf240",
+                            SecurityStamp = "fb628e5b-b73b-4ba9-8aa8-d04409801045",
                             TwoFactorEnabled = false,
                             UserName = "alice@example.com"
                         },
@@ -287,7 +287,7 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "69321195-8b73-4f1a-919b-e7deee4b3909",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "535d1796-7039-4187-a297-a51042c9e60e",
+                            ConcurrencyStamp = "b97068b2-38bd-4f6a-b553-24192d520ea6",
                             DateofBirth = new DateOnly(1990, 1, 1),
                             Email = "user1adin@gmail.com",
                             EmailConfirmed = true,
@@ -296,9 +296,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1admin@GMAIL.COM",
                             NormalizedUserName = "USER1admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMmRjVXxwonwAjHxrAYZXPHRyfU7/Sv6ldAGf9GYPm7rsXvuTTY7ua6TBzWgg8DHEg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEACM8461VFUVQjzKU7imwRAR2phfSiWvP4hoSitKV+kAoLL6rZicWHyHe/IGw/U8Xg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b2ea9933-54bb-483b-a62a-4393dbdd7589",
+                            SecurityStamp = "412cccbe-2506-4c08-b359-d7ff4905303b",
                             TwoFactorEnabled = false,
                             UserName = "user1admin"
                         },
@@ -306,7 +306,7 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "bdee7c76-d0b8-4ff2-908c-f80177687964",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85016005-f514-4a05-93a9-a56ff6a7ce17",
+                            ConcurrencyStamp = "d7ee735b-03f1-4af4-8923-2d627662848a",
                             DateofBirth = new DateOnly(1992, 2, 2),
                             Email = "user2sup@gmail.com",
                             EmailConfirmed = true,
@@ -315,9 +315,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2SUP@GMAIL.COM",
                             NormalizedUserName = "USER2SUP",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM6NCGYLlht15Nxe2LfYL8+qsYBCO+gRVY+rtAcdTnxh3udBld5RvoPSomr9lqK7sA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPtXH49Tg3VvPMDO0hljKrZBXmqi2eqLO8qUlswAHIIcXImGp/gm9MBTET0dXFPL9Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e72aebbc-13d2-4fd6-a4c7-6f670b2f3f2f",
+                            SecurityStamp = "fca0e108-6992-4ad0-804c-e21fb9710f12",
                             TwoFactorEnabled = false,
                             UserName = "user2sup"
                         });
@@ -421,6 +421,9 @@ namespace TapLinko.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicSlug")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")

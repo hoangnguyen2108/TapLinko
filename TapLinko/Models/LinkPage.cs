@@ -19,6 +19,7 @@ namespace TapLinko.Models
         public string? Bio {  get; set; }
         public string? ProfileImageUrl { get; set; }
         public string? BannerImageUrl { get; set; }
+        public string? PublicSlug { get; set; }
 
         // 1 - many LinkItems
         public List<LinkItem> LinkItems { get; set; } = new List<LinkItem>();
