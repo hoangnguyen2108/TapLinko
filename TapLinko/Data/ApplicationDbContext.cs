@@ -77,11 +77,11 @@ namespace TapLinko.Data
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser
             {
                 Id = "69321195-8b73-4f1a-919b-e7deee4b3909",
-                UserName = "user1admin",
-                NormalizedUserName = "USER1admin",
-                Email = "user1adin@gmail.com",
-                NormalizedEmail = "USER1admin@GMAIL.COM",
-                PasswordHash = hasher.HashPassword(null, "lONGBADAO123@"),
+                UserName = "user1admin@gmail.com",
+                NormalizedUserName = "USER1ADMIN@GMAIL.COM",
+                Email = "user1admin@gmail.com",
+                NormalizedEmail = "USER1ADMIN@GMAIL.COM",
+                PasswordHash = hasher.HashPassword(null, "Longbadao123@"),
                 EmailConfirmed = true,
                 FirstName = "Jay",
                 LastName = "Van",
@@ -91,11 +91,11 @@ namespace TapLinko.Data
             new ApplicationUser
             {
                 Id = "bdee7c76-d0b8-4ff2-908c-f80177687964",
-                UserName = "user2sup",
-                NormalizedUserName = "USER2SUP",
+                UserName = "user2sup@gmail.com",
+                NormalizedUserName = "USER2SUP@GMAIL.COM",
                 Email = "user2sup@gmail.com",
                 NormalizedEmail = "USER2SUP@GMAIL.COM",
-                PasswordHash = hasher.HashPassword(null, "lONGBADAO123@"),
+                PasswordHash = hasher.HashPassword(null, "Longbadao123@"),
                 EmailConfirmed = true,
                 FirstName = "John",
                 LastName = "Doe",

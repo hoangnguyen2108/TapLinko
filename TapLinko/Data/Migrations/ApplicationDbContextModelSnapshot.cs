@@ -269,7 +269,7 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "989eb43a-82b3-43a2-b29b-1e14488286fe",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "01e03f4e-e340-4ae8-a97f-ef76eacb3cd2",
+                            ConcurrencyStamp = "5df8d6d9-a88f-4eaf-b9d4-c99b8ef00aa8",
                             Email = "alice@example.com",
                             EmailConfirmed = true,
                             FirstName = "Alice",
@@ -277,9 +277,9 @@ namespace TapLinko.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ALICE@EXAMPLE.COM",
                             NormalizedUserName = "ALICE@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHRaE5457JJdHqMiag7kMOokO6E1wU6IujEIKC/xqtCEhGLQplXFxOZoSwtlqptHzQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMjyl04QINaS8Ocy1H36qU5BsaoIZgknptWgSBVHIslHbyqakDBmlkZn0N1TwCZM6A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fb628e5b-b73b-4ba9-8aa8-d04409801045",
+                            SecurityStamp = "9a72d81c-ac14-4337-9b4c-d34bb9fe3ea1",
                             TwoFactorEnabled = false,
                             UserName = "alice@example.com"
                         },
@@ -287,26 +287,26 @@ namespace TapLinko.Data.Migrations
                         {
                             Id = "69321195-8b73-4f1a-919b-e7deee4b3909",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b97068b2-38bd-4f6a-b553-24192d520ea6",
+                            ConcurrencyStamp = "5b247533-0c10-438c-802f-425d80c83468",
                             DateofBirth = new DateOnly(1990, 1, 1),
-                            Email = "user1adin@gmail.com",
+                            Email = "user1admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Jay",
                             LastName = "Van",
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER1admin@GMAIL.COM",
-                            NormalizedUserName = "USER1admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEACM8461VFUVQjzKU7imwRAR2phfSiWvP4hoSitKV+kAoLL6rZicWHyHe/IGw/U8Xg==",
+                            NormalizedEmail = "USER1ADMIN@GMAIL.COM",
+                            NormalizedUserName = "USER1ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA52iY1zokmNvPsWufBQKb9NnNTA3EdSU9BApGr2q8ixZP3WYhpO0uVq2Tdt80goVA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "412cccbe-2506-4c08-b359-d7ff4905303b",
+                            SecurityStamp = "4ba6c652-75a8-4683-a0d6-4373a3fa2d6f",
                             TwoFactorEnabled = false,
-                            UserName = "user1admin"
+                            UserName = "user1admin@gmail.com"
                         },
                         new
                         {
                             Id = "bdee7c76-d0b8-4ff2-908c-f80177687964",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d7ee735b-03f1-4af4-8923-2d627662848a",
+                            ConcurrencyStamp = "421a6230-62ab-43ad-9e98-189996ad234a",
                             DateofBirth = new DateOnly(1992, 2, 2),
                             Email = "user2sup@gmail.com",
                             EmailConfirmed = true,
@@ -314,12 +314,12 @@ namespace TapLinko.Data.Migrations
                             LastName = "Doe",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2SUP@GMAIL.COM",
-                            NormalizedUserName = "USER2SUP",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPtXH49Tg3VvPMDO0hljKrZBXmqi2eqLO8qUlswAHIIcXImGp/gm9MBTET0dXFPL9Q==",
+                            NormalizedUserName = "USER2SUP@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMNHE8do/tZdK4TlUGH9N9LEAsb0ONRmSHyHtyxz1EcPm1s5wahYN+voLHBI2ZGZgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fca0e108-6992-4ad0-804c-e21fb9710f12",
+                            SecurityStamp = "e6d418f9-f6c2-4dd5-87f9-cbcb81cc7676",
                             TwoFactorEnabled = false,
-                            UserName = "user2sup"
+                            UserName = "user2sup@gmail.com"
                         });
                 });
 

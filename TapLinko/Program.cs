@@ -17,9 +17,9 @@ builder.Services.AddScoped<ILinkPageUserService, LinkPageUserService>();
 builder.Services.AddScoped<ILinkPageService, LinkPageService>();
 builder.Services.AddScoped<ILinkItemService, LinkItemService>();
 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+// builder.Services.AddTransient<IEmailSender, EmailSender>();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();

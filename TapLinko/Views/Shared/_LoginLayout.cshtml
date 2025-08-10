@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TapLinko</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TapLinko.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 1.5rem 1rem;
+        }
+
+            .sidebar .nav-link {
+                color: #333;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+                .sidebar .nav-link:hover {
+                    background-color: #e9ecef;
+                    border-radius: 4px;
+                }
+
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">TapLinko</a>
+
+                <div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-success fw-semibold">👋 @User.Identity?.Name</span>
+                            <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">🚪 Logout</button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-outline-primary btn-sm" asp-area="Identity" asp-page="/Account/Login">🔐 Login</a>
+                            <a class="btn btn-primary btn-sm" asp-area="Identity" asp-page="/Account/Register">📝 Register</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Layout -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="card animate__animated animate__pulse animate__infinite shadow-sm mb-4">
+                <img src="~/image/nfc-card-promo.jpg" class="card-img-top" alt="NFC Card">
+                <div class="card-body text-center">
+                    <h6 class="card-title">🚀 Upgrade to NFC!</h6>
+                    <p class="card-text small">Share your profile with a tap using our smart NFC card.</p>
+                    <p class="card-text small">Custom NFC cards are available.</p>
+                    <a href="/nfc" class="btn btn-sm btn-primary">Learn More</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-top footer text-muted text-center py-3 mt-auto">
+        <div class="container">
+            &copy; 2025 - TapLinko - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -199,7 +199,7 @@ namespace TapLinko.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Account"); // Always go to Home/Index
                     }
                 }
                 foreach (var error in result.Errors)

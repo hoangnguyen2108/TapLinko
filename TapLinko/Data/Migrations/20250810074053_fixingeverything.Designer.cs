@@ -12,8 +12,8 @@ using TapLinko.Data;
 namespace TapLinko.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250726070551_seeddatalinkietem")]
-    partial class seeddatalinkietem
+    [Migration("20250810074053_fixingeverything")]
+    partial class fixingeverything
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,26 @@ namespace TapLinko.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1b1bb66e-6aa2-4728-8b5b-4e6de4fd899b",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "958e6340-4275-49ed-80ee-2cb5e2fad807",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
+                        },
+                        new
+                        {
+                            Id = "f4145e80-361d-4541-b311-9e95b4a95964",
+                            Name = "Supervisor",
+                            NormalizedName = "SUPERVISOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -75,71 +95,6 @@ namespace TapLinko.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -204,6 +159,18 @@ namespace TapLinko.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "69321195-8b73-4f1a-919b-e7deee4b3909",
+                            RoleId = "1b1bb66e-6aa2-4728-8b5b-4e6de4fd899b"
+                        },
+                        new
+                        {
+                            UserId = "bdee7c76-d0b8-4ff2-908c-f80177687964",
+                            RoleId = "f4145e80-361d-4541-b311-9e95b4a95964"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -225,6 +192,138 @@ namespace TapLinko.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TapLinko.Data.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly?>("DateofBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "989eb43a-82b3-43a2-b29b-1e14488286fe",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5df8d6d9-a88f-4eaf-b9d4-c99b8ef00aa8",
+                            Email = "alice@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Alice",
+                            LastName = "Nguyen",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ALICE@EXAMPLE.COM",
+                            NormalizedUserName = "ALICE@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMjyl04QINaS8Ocy1H36qU5BsaoIZgknptWgSBVHIslHbyqakDBmlkZn0N1TwCZM6A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9a72d81c-ac14-4337-9b4c-d34bb9fe3ea1",
+                            TwoFactorEnabled = false,
+                            UserName = "alice@example.com"
+                        },
+                        new
+                        {
+                            Id = "69321195-8b73-4f1a-919b-e7deee4b3909",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5b247533-0c10-438c-802f-425d80c83468",
+                            DateofBirth = new DateOnly(1990, 1, 1),
+                            Email = "user1admin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Jay",
+                            LastName = "Van",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER1ADMIN@GMAIL.COM",
+                            NormalizedUserName = "USER1ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA52iY1zokmNvPsWufBQKb9NnNTA3EdSU9BApGr2q8ixZP3WYhpO0uVq2Tdt80goVA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4ba6c652-75a8-4683-a0d6-4373a3fa2d6f",
+                            TwoFactorEnabled = false,
+                            UserName = "user1admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "bdee7c76-d0b8-4ff2-908c-f80177687964",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "421a6230-62ab-43ad-9e98-189996ad234a",
+                            DateofBirth = new DateOnly(1992, 2, 2),
+                            Email = "user2sup@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER2SUP@GMAIL.COM",
+                            NormalizedUserName = "USER2SUP@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMNHE8do/tZdK4TlUGH9N9LEAsb0ONRmSHyHtyxz1EcPm1s5wahYN+voLHBI2ZGZgg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e6d418f9-f6c2-4dd5-87f9-cbcb81cc7676",
+                            TwoFactorEnabled = false,
+                            UserName = "user2sup@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("TapLinko.Models.ClickEvent", b =>
@@ -318,19 +417,26 @@ namespace TapLinko.Data.Migrations
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LinkPageTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("PublicSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LinkPageId");
 
                     b.HasIndex("UserId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("LinkPages");
 
@@ -342,36 +448,7 @@ namespace TapLinko.Data.Migrations
                             Bio = "Welcome to my page! 💖",
                             LinkPageTitle = "Alice's Bio",
                             ProfileImageUrl = "/image/image.jpeg",
-                            UserId = 1
-                        });
-                });
-
-            modelBuilder.Entity("TapLinko.Models.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Name = "Alice Nguyen"
+                            UserId = "989eb43a-82b3-43a2-b29b-1e14488286fe"
                         });
                 });
 
@@ -386,7 +463,7 @@ namespace TapLinko.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.ApplicationUser", null)
+                    b.HasOne("TapLinko.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -395,7 +472,7 @@ namespace TapLinko.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.ApplicationUser", null)
+                    b.HasOne("TapLinko.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,7 +487,7 @@ namespace TapLinko.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.ApplicationUser", null)
+                    b.HasOne("TapLinko.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -419,7 +496,7 @@ namespace TapLinko.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.ApplicationUser", null)
+                    b.HasOne("TapLinko.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -450,13 +527,16 @@ namespace TapLinko.Data.Migrations
 
             modelBuilder.Entity("TapLinko.Models.LinkPage", b =>
                 {
-                    b.HasOne("TapLinko.Models.User", "User")
+                    b.HasOne("TapLinko.Data.ApplicationUser", "ApplicationUser")
                         .WithOne("LinkPage")
-                        .HasForeignKey("TapLinko.Models.LinkPage", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TapLinko.Models.LinkPage", "UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("TapLinko.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("LinkPage");
                 });
 
             modelBuilder.Entity("TapLinko.Models.LinkItem", b =>
@@ -467,11 +547,6 @@ namespace TapLinko.Data.Migrations
             modelBuilder.Entity("TapLinko.Models.LinkPage", b =>
                 {
                     b.Navigation("LinkItems");
-                });
-
-            modelBuilder.Entity("TapLinko.Models.User", b =>
-                {
-                    b.Navigation("LinkPage");
                 });
 #pragma warning restore 612, 618
         }

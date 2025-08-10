@@ -8,21 +8,29 @@ namespace TapLinko.Services
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var fromAddress = _configuration["EmailSettings:DefaultSetting"];
-            var smpServer = _configuration["EmailSettings:Server"];
-            var smpPort = Convert.ToInt32(_configuration["EmailSettings:Port"]);
-
-            var message = new MailMessage
+            try
             {
-                From = new MailAddress(fromAddress),
-                Subject = subject,
-                Body = htmlMessage,
-                IsBodyHtml = true
-            };
+                var fromAddress = _configuration["EmailSettings:DefaultSetting"];
+                var smpServer = _configuration["EmailSettings:Server"];
+                var smpPort = Convert.ToInt32(_configuration["EmailSettings:Port"]);
 
-            message.To.Add(new MailAddress(email));
-            using var client = new SmtpClient(smpServer, smpPort);
-            await client.SendMailAsync(message);
+                var message = new MailMessage
+                {
+                    From = new MailAddress(fromAddress),
+                    Subject = subject,
+                    Body = htmlMessage,
+                    IsBodyHtml = true
+                };
+
+                message.To.Add(new MailAddress(email));
+                using var client = new SmtpClient(smpServer, smpPort);
+                await client.SendMailAsync(message);
+            }
+            catch
+            {
+                Console.WriteLine("Error with sending email confirm");
+            }
+            
         }
     }
 }

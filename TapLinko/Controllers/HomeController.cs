@@ -13,6 +13,10 @@ namespace TapLinko.Controllers
             _logger = logger;
         }
 
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
